@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Simple Dialog</title>
+
+        <link rel="stylesheet" href="/src/assets/style.css" />
+    </head>
+    <body class="bg-body text-on-body font-sans antialiased">
+        <div class="fixed top-6 right-6">
+            <button
+                type="button"
+                class="btn btn--ghost btn--icon"
+                id="themeToggler"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="not-dark:hidden"
+                >
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="dark:hidden"
+                >
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="m17.66 17.66 1.41 1.41" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                    <path d="m6.34 17.66-1.41 1.41" />
+                    <path d="m19.07 4.93-1.41 1.41" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex min-h-dvh items-center justify-center gap-4">
+            <app-dialog-trigger target="dialog1">
+                <button type="button" class="btn btn--ghost">Dialog</button>
+            </app-dialog-trigger>
+
+            <app-dialog-trigger target="sheet1">
+                <button type="button" class="btn btn--ghost">Sheet</button>
+            </app-dialog-trigger>
+
+            <app-dialog-trigger target="drawer1">
+                <button type="button" class="btn btn--ghost">Drawer</button>
+            </app-dialog-trigger>
+        </div>
+
+        <app-dialog name="dialog1">
+            <dialog class="dialog" data-app-dialog="root">
+                <div class="dialog__overlay" data-app-dialog="overlay"></div>
+                <div class="dialog__content" data-app-dialog="content">
+                    <div class="dialog__header">
+                        <h5 class="dialog__title">Example Dialog</h5>
+                        <p class="dialog__description">
+                            Example of dialog using HTML, CSS, and Javascript
+                            (Typescript)
+                        </p>
+                    </div>
+
+                    <div class="dialog__footer">
+                        <button
+                            type="button"
+                            class="btn btn--ghost"
+                            data-app-dialog="close"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </dialog>
+        </app-dialog>
+
+        <app-dialog name="sheet1">
+            <dialog class="sheet" data-app-dialog="root">
+                <div class="sheet__overlay" data-app-dialog="overlay"></div>
+                <div class="sheet__content" data-app-dialog="content">
+                    <div class="sheet__header">
+                        <h5 class="sheet__title">Example Sheet</h5>
+                        <p class="sheet__description">
+                            Example of sheet using HTML, CSS, and Javascript
+                            (Typescript)
+                        </p>
+                    </div>
+
+                    <div class="sheet__footer">This is footer</div>
+
+                    <button
+                        type="button"
+                        class="sheet__close"
+                        data-app-dialog="close"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="size-4"
+                        >
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </dialog>
+        </app-dialog>
+
+        <app-dialog name="drawer1" variant="drawer">
+            <dialog class="drawer" data-app-dialog="root">
+                <div class="drawer__overlay" data-app-dialog="overlay"></div>
+                <div class="drawer__content" data-app-dialog="content">
+                    <div class="drawer__handle"></div>
+                    <div class="drawer__header">
+                        <h5 class="drawer__title">Example Drawer</h5>
+                        <p class="drawer__description">
+                            Example of drawer using HTML, CSS, and Javascript
+                            (Typescript)
+                        </p>
+                    </div>
+
+                    <p class="p-4 pt-0">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Iure quam delectus possimus modi. Debitis, voluptas
+                        officia, expedita sequi tempora nostrum quibusdam rerum
+                        temporibus dolor praesentium veniam beatae in commodi
+                        quo.
+                    </p>
+
+                    <div class="drawer__footer">
+                        <button
+                            type="button"
+                            class="btn btn--ghost"
+                            data-app-dialog="close"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </dialog>
+        </app-dialog>
+
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>

@@ -1,0 +1,264 @@
+@theme inline {
+    --color-dialog: var(--color-body, var(--color-zinc-100));
+    --color-on-dialog: var(--color-on-body, var(--color-zinc-900));
+    --color-dialog-muted: var(--color-muted, var(--color-zinc-500));
+    --color-dialog-input: var(--color-input, var(--color-zinc-400));
+    --color-dialog-border: var(--color-border, var(--color-zinc-200));
+}
+
+@layer components {
+    .dialog,
+    .sheet,
+    .drawer {
+        @variant backdrop {
+            display: none;
+        }
+
+        @variant * {
+            border-color: var(--color-border);
+        }
+    }
+
+    .dialog__overlay,
+    .sheet__overlay,
+    .drawer__overlay {
+        position: fixed;
+        inset: 0;
+        background-color: color-mix(
+            in oklab,
+            var(--color-black) 50%,
+            transparent
+        );
+        opacity: 0;
+
+        @variant data-[state=opening] {
+            opacity: 1;
+            animation-name: enter;
+            --tw-enter-opacity: 0;
+        }
+
+        @variant data-[state=active] {
+            opacity: 1;
+        }
+
+        @variant data-[state=closing] {
+            opacity: 1;
+            animation-name: exit;
+            --tw-exit-opacity: 0;
+        }
+    }
+
+    .sheet__overlay,
+    .drawer__overlay {
+        animation-duration: 200ms;
+    }
+
+    .dialog__header,
+    .sheet__header,
+    .drawer__header {
+        display: flex;
+        flex-direction: column;
+        gap: --spacing(1.5);
+        padding: --spacing(4);
+    }
+
+    .dialog__footer,
+    .sheet__footer,
+    .drawer__footer {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: --spacing(2);
+        padding: --spacing(4);
+    }
+
+    .dialog__title,
+    .sheet__title,
+    .drawer__title {
+        font-weight: var(--font-weight-semibold);
+    }
+
+    .dialog__description,
+    .sheet__description,
+    .drawer__description {
+        color: var(--color-dialog-muted);
+        font-size: var(--text-sm);
+        line-height: var(--text-sm--line-height);
+    }
+
+    .dialog__content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        display: flex;
+        flex-direction: column;
+        gap: --spacing(4);
+        width: 100%;
+        max-width: calc(100% - 2rem);
+        background-color: var(--color-dialog);
+        color: var(--color-on-dialog);
+        padding: --spacing(6);
+        border-width: 1px;
+        border-radius: var(--radius-xl);
+        animation-duration: 200ms;
+        @apply shadow-lg;
+
+        @variant sm {
+            max-width: var(--container-lg);
+        }
+
+        @variant data-[state=opening] {
+            animation-name: enter;
+            --tw-enter-scale: 0.95;
+            --tw-enter-opacity: 0;
+        }
+
+        @variant data-[state=closing] {
+            animation-name: exit;
+            --tw-exit-scale: 0.95;
+            --tw-exit-opacity: 0;
+        }
+    }
+
+    .dialog__header {
+        gap: --spacing(2);
+        padding: 0;
+        text-align: center;
+
+        @variant sm {
+            text-align: left;
+        }
+    }
+
+    .dialog__footer {
+        margin-top: 0;
+        flex-direction: column-reverse;
+        gap: --spacing(2);
+        padding: 0;
+
+        @variant sm {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+    }
+
+    .dialog__title {
+        font-size: var(--text-lg);
+        line-height: 1;
+    }
+
+    .sheet__content {
+        background-color: var(--color-dialog);
+        color: var(--color-on-dialog);
+        position: fixed;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: calc(3 / 4 * 100%);
+        translate: -100% 0;
+        border-right-width: 1px;
+        overflow-x: hidden;
+
+        @variant sm {
+            width: 100%;
+            max-width: var(--container-sm);
+        }
+
+        @variant data-[state=opening] {
+            translate: 0 0;
+            animation-name: enter;
+            animation-duration: 300ms;
+            --tw-enter-translate-x: -100%;
+        }
+
+        @variant data-[state=active] {
+            translate: 0 0;
+        }
+
+        @variant data-[state=closing] {
+            translate: 0 0;
+            animation-name: exit;
+            animation-duration: 500ms;
+            --tw-exit-translate-x: -100%;
+        }
+    }
+
+    .sheet__close {
+        --tw-ring-offset-color: var(--color-dialog);
+        position: absolute;
+        top: --spacing(4);
+        right: --spacing(4);
+        border-radius: var(--radius-sm);
+        opacity: 70%;
+        @apply shadow-lg transition-opacity;
+
+        @variant hover {
+            opacity: 100%;
+        }
+
+        @variant focus {
+            --tw-ring-color: var(--color-dialog-input);
+            @apply ring-2 ring-offset-2 outline-hidden;
+        }
+
+        @variant disabled {
+            pointer-events: none;
+        }
+
+        & svg {
+            pointer-events: none;
+        }
+    }
+
+    .drawer__handle {
+        background-color: color-mix(
+            in oklab,
+            var(--color-on-body) 10%,
+            transparent
+        );
+        margin-inline: auto;
+        margin-top: --spacing(4);
+        height: --spacing(2);
+        width: 100px;
+        flex-shrink: 0;
+        border-radius: calc(infinity * 1px);
+    }
+
+    .drawer__content {
+        background-color: var(--color-dialog);
+        color: var(--color-on-dialog);
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        translate: 0 100%;
+        border-top-width: 1px;
+        border-top-right-radius: var(--radius-xl);
+        border-top-left-radius: var(--radius-xl);
+
+        @variant data-[state=opening] {
+            translate: 0;
+            animation-name: enter;
+            animation-duration: 300ms;
+            --tw-enter-translate-y: 100%;
+        }
+
+        @variant data-[state=active] {
+            translate: 0 0;
+        }
+
+        @variant data-[state=closing] {
+            translate: 0 0;
+            animation-name: exit;
+            animation-duration: 500ms;
+            --tw-exit-translate-y: 100%;
+        }
+    }
+}
